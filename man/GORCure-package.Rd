@@ -14,8 +14,8 @@ censored, this package provides an efficient solution for the GORMC model based 
 \tabular{ll}{
 Package: \tab GORCure\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2016-03-07\cr
+Version: \tab 2.0\cr
+Date: \tab 2017-01-12\cr
 License: \tab GPL-2\cr
 }
 The main function is GORMC, which produces the estimates for coefficients and the covariance matrix. The summary function 
@@ -29,9 +29,8 @@ Jie Zhou, Jiajia Zhang, Wenbin Lu
 Maintainer: Jie Zhou <zhoujie02569@gmail.com>
 }
 \references{
-Zhou, J., Zhang, J. and Lu, W. (2016+). EM Algorithm for the Generalized Odds Rate Mixture Cure Model with Interval 
-Censored Data. Submitted to Journal of Computational and Graphical Statistics.
+Zhou, J., Zhang, J. and Lu, W. (2017+). Computationally Efficient Estimation for the Generalized Odds Rate Mixture Cure Model with Interval Censored Data.
 }
-\keyword{ package, linear transformation model, mixture cure model, interval censoring }
+\keyword{ package, linear transformation model, mixture cure model, interval censoring}
 
 

@@ -37,8 +37,8 @@ function(survfun=formula(data),curefun=formula(data),data=parent.frame(),
    N<-nrow(sdata)
 
    # Estimates
-   temp.est<-try(EM.Iter(sdata=sdata,Xp=Xp,Zp=Zp,r=r,n.int=n.int,order=order,max.iter=max.iter,cov.rate=cov.rate),silent=TRUE)
-   if(is.character(temp.est)) cat("ERROR: the EM algorithm does not converge.\n")
+   temp.est<-EM.Iter(sdata=sdata,Xp=Xp,Zp=Zp,r=r,n.int=n.int,order=order,max.iter=max.iter,cov.rate=cov.rate)
+   #if(is.character(temp.est)) cat("ERROR: the EM algorithm does not converge.\n")
    if(!is.character(temp.est)){
    # Variance
    temp.hess<-try(VCOV.calc(object=temp.est),silent=TRUE)

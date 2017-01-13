@@ -11,10 +11,11 @@ function(sdata,Xp,Zp,r,n.int,order,max.iter,cov.rate){
    r.mat<-function(x) matrix(x,ncol=N,nrow=L,byrow=TRUE)
    c.mat<-function(x) matrix(x,ncol=N,nrow=L)
 
-   ti <- c(sdata$Li[sdata$d2 == 1], sdata$Ri[sdata$d3 == 0])
+   ti <- c(sdata$Li[sdata$d1 == 0], sdata$Ri[sdata$d3 == 0])
    ti.max <- max(ti) + 1e-05
    ti.min <- min(ti) - 1e-05
-   knots <- seq(ti.min, ti.max, length.out = (n.int + 2))
+   #knots <- seq(ti.min, ti.max, length.out = (n.int + 2))
+   knots <-quantile(ti,seq(0,1,length.out = (n.int + 2)))
 
    bl.Li<-bl.Ri<-matrix(0,nrow=L,ncol=N)
    bl.Li[,sdata$d1==0]<-Ispline(sdata$Li[sdata$d1==0],order=order,knots=knots)
@@ -77,9 +78,11 @@ function(sdata,Xp,Zp,r,n.int,order,max.iter,cov.rate){
       fit1<-glm(formu,fit1.data,family=quasibinomial("logit"))
       if(r>0) fit2<-nlm(bb.gamma,p=b0,r=r,sdata=sdata,Xp=Xp,Eyil=Eyil,Ewil=Ewil,Efi=Efi,Euifi=Euifi,bl.Li=bl.Li,bl.Ri=bl.Ri)
       if(r==0) fit2<-nlm(bb.gamma0,p=b0,sdata=sdata,Xp=Xp,Eyil=Eyil,Ewil=Ewil,Eui=Eui,bl.Li=bl.Li,bl.Ri=bl.Ri)
+
       if(!is.character(fit1) & !is.character(fit2)){
         e0<-fit1$coef
         b0<-fit2$estimate
+	  #b0<-fit2$par
         if(r==0) g0<-gg.beta0(bb=b0,sdata=sdata,Xp=Xp,Eyil=Eyil,Ewil=Ewil,Eui=Eui,bl.Li=bl.Li,bl.Ri=bl.Ri)
         if(r>0) g0<-gg.beta(bb=b0,r=r,sdata=sdata,Xp=Xp,Eyil=Eyil,Ewil=Ewil,Efi=Efi,Euifi=Euifi,bl.Li=bl.Li,bl.Ri=bl.Ri)
         est.par[ii,]<-c(e0,b0,g0)

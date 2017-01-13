@@ -57,8 +57,7 @@ log-likelihood value(loglik).}
 \item{ParVcov}{The estimated covariance matrix of the coefficients Eta and Beta.}
 }
 \references{
-Zhou, J., Zhang, J. and Lu, W. (2016+). EM Algorithm for the Generalized Odds Rate Mixture Cure Model with Interval 
-Censored Data. Submitted to Journal of Computational and Graphical Statistics.
+Zhou, J., Zhang, J. and Lu, W. (2017+). Computationally Efficient Estimation for the Generalized Odds Rate Mixture Cure Model with Interval Censored Data. 
 }
 
 \note{

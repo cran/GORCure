@@ -1,7 +1,7 @@
 \name{predict.GORMC}
 \alias{predict.GORMC}
 \title{
-Predict cure rate and survival curve for a new subject.
+Predict cure rate and overall survival curve for a new subject.
 }
 \description{
 Based on the predicted model, cure rate and survival probabilities are calculated for a new individual with specific 
@@ -21,8 +21,8 @@ Other argumetns including new.x and new.z. See details.
 }
 \details{
 For a new subject, new.x and new.z correspond to the covariate vector in the survival part and the cure rate part. The 
-first input of new.z is always 1 corresponding to the intercept. Another argument len defines the number of equally 
-spaced time points for calculating the survival curve, default is 100.
+first input of new.z is always 1 corresponding to the intercept. 
+tp is an argument specifying the time points at which survival probabilities will be predicted. If no value specified for tp, a sequence of equally spaced time points from 0 to the largest observation time will be used and the total length of the sequence is defined by an argument len. The default value of len is 100.
 }
 \value{
 \item{CureRate}{Estimated cure rate of the new subject.}

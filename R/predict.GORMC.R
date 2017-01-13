@@ -11,11 +11,21 @@ function(object,...){
      new.x<-as.vector(arg$new.x)
      mdata<-object$mdata
      ti<-unique(c(0,na.omit(mdata$Li),na.omit(mdata$Ri)))
-     tp<-seq(0,max(ti)+1e-5,length.out=arg$len)
+     if(is.null(arg$tp)){
+	tp<-seq(0,max(ti),length.out=arg$len)
+     }else{
+	tp<-arg$tp
+     }
      pzi<-exp(sum(object$ParEst$Eta*new.z))/(1+exp(sum(object$ParEst$Eta*new.z)))
      exb<-exp(sum(object$ParEst$Beta*new.x))
-     if(object$ParEst$r>0) surv<-1-pzi+pzi*(1+object$ParEst$r*t(Ispline(tp,order=object$ParEst$order,knots=object$ParEst$knots))%*%object$ParEst$gl*exb)^(-1/object$ParEst$r)
-     if(object$ParEst$r==0)  surv<-1-pzi+pzi*exp(-t(Ispline(tp,order=object$ParEst$order,knots=object$ParEst$knots))%*%object$ParEst$gl*exb)
+     Het.est1<-t(Ispline(tp[tp<=max(ti)],order=object$ParEst$order,knots=object$ParEst$knots))%*%object$ParEst$gl
+     obj<-smooth.spline(tp[tp<=max(ti)],Het.est1)
+     Het.est2<-predict(obj,x=tp[tp>max(ti)],deriv=0)$y
+
+     if(object$ParEst$r>0)  sut<-(1+object$ParEst$r*c(Het.est1,Het.est2)*exb)^(-1/object$ParEst$r)
+     if(object$ParEst$r==0)  sut<-exp(-c(Het.est1,Het.est2)*exb)
+
+     surv<-1-pzi+pzi*sut
      pred<-list(CureRate=1-pzi,Survival=data.frame(Time=tp,SurvProb=surv))
      class(pred)<-"GORMC"
      class(pred)<-"predict.GORMC"
